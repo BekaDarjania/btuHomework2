@@ -20,15 +20,25 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        Car::create([
-            'name' => 'mazda',
-            'make' => 'mother russia',
-            'model' => 'RPG 69',
-            'license_number' => 'RUS 233',
-            'weight' => 900.23,
-            'registration_year' => 1980
+        $request->validate([
+            'name' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'license_number' => 'required',
+            'weight' => 'required',
+            'registration_year' => 'required'
         ]);
-        return 'success';
+
+        Car::create([
+            'name' => $request->input('name'),
+            'make' => $request->input('make'),
+            'model' => $request->input('model'),
+            'license_number' => $request->input('license_number'),
+            'weight' => $request->input('weight'),
+            'registration_year' => $request->input('registration_year')
+        ]);
+
+        return redirect('/');
     }
 
     public function show($id)
@@ -38,16 +48,36 @@ class CarController extends Controller
 
     public function edit($id)
     {
-        //
+        $car = Car::where('id', $id)->get()[0];
+        return view('edit')->with('car', $car);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'license_number' => 'required',
+            'weight' => 'required',
+            'registration_year' => 'required'
+        ]);
+
+        Car::where('id', $id)->update(array(
+            'name' => $request->input('name'),
+            'make' => $request->input('make'),
+            'model' => $request->input('model'),
+            'license_number' => $request->input('license_number'),
+            'weight' => $request->input('weight'),
+            'registration_year' => $request->input('registration_year')
+        ));
+
+        return redirect('/');
     }
 
     public function destroy($id)
     {
-        //
+        Car::where('id', $id)->delete();
+        return redirect('/');
     }
 }

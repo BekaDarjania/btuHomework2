@@ -12,6 +12,7 @@
                 <th scope="col">License N.</th>
                 <th scope="col">Weight</th>
                 <th scope="col">Reg. Year</th>
+                <th scope="col">Age</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -25,14 +26,17 @@
                         <td>{{ $car->license_number }}</td>
                         <td>{{ $car->weight }}</td>
                         <td>{{ $car->registration_year }}</td>
+                        <td>{{ date('Y') - $car->registration_year }}</td>
                         <td>
-                            <a href="" class="btn btn-info">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="/cars/edit/{{ $car->id }}" class="btn btn-info">Edit</a>
+                            <a href="/cars/destroy/{{ $car->id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
     </table>
+
+    <a href="/cars/create" class="btn btn-info">Add Car</a>
 
 @endsection

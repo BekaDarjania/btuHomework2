@@ -2,14 +2,7 @@
 
 @section('content')
 
-    {{ Form::open(array('action' => '\App\Http\Controllers\CarController@store', 'url' => 'foo/bar')) }}
-
-    {{ Form::close() }}
-
-
-    <form autocomplete="off">
-
-        <input type="hidden" name="_token">
+    {{ Form::open(['action' => '\App\Http\Controllers\CarController@store', 'autocomplete' => 'off']) }}
 
         <div class="form-group">
             <label>Name</label>
@@ -28,7 +21,7 @@
 
         <div class="form-group">
             <label>License Number</label>
-            <input name="license_number" type="text"  class="form-control">
+            <input name="license_number" type="text" class="form-control">
         </div>
 
         <div class="form-group">
@@ -38,10 +31,12 @@
 
         <div class="form-group">
             <label>Registration Year</label>
-            <input name="registration_year" type="number" step="any"  value="2000" class="form-control">
+            <input name="registration_year" type="number" step="any" value="2000" class="form-control">
         </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
+        <a class="btn btn-danger" href="/">Back</a>
 
-    </form>
+    {{ Form::close() }}
+
 @endsection
